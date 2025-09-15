@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Scheduled Posts</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Text</th><th>Image</th><th>Schedule Time</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in posts %}
+    <tr>
+      <td>{{ post.text }}</td>
+      <td><img src="{{ url_for('static', filename='images/' + post.image) }}" width="100"></td>
+      <td>{{ post.schedule_time }}</td>
+      <td class="d-flex">
+        <a href="{{ url_for('edit', post_id=post.id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
+        <form method="post" action="{{ url_for('delete', post_id=post.id) }}">
+          <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this scheduled post?')">Delete</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4" class="text-muted">No scheduled posts.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

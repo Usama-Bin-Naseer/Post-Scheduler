@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Social Media Post Scheduler</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="mb-3">
+      <a class="btn btn-primary" href="{{ url_for('index') }}">Scheduled</a>
+      <a class="btn btn-secondary" href="{{ url_for('preview') }}">Preview (Published)</a>
+      <a class="btn btn-success" href="{{ url_for('schedule') }}">New Post</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'danger' if category=='error' or category=='danger' else category }} mb-3">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

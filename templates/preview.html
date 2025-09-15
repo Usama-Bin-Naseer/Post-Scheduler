@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Preview (Published Posts)</h1>
+<table class="table">
+  <thead><tr><th>Text</th><th>Image</th><th>Published At</th><th></th></tr></thead>
+  <tbody>
+  {% for post in posts %}
+    <tr>
+      <td>{{ post.text }}</td>
+      <td><img src="{{ url_for('static', filename='images/' + post.image) }}" width="100"></td>
+      <td>{{ post.schedule_time }}</td>
+      <td>
+        <form method="post" action="{{ url_for('delete', post_id=post.id) }}">
+          <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this post?')">Delete</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4" class="text-muted">No published posts yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

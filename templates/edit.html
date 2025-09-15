@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Edit Post</h1>
+<form method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label>Post Text</label>
+    <textarea class="form-control" name="text" rows="3" required>{{ post.text }}</textarea>
+  </div>
+  <div class="form-group">
+    <label>Replace Image (optional)</label>
+    <input type="file" class="form-control" name="image">
+    <small class="form-text text-muted">Current: <img src="{{ url_for('static', filename='images/' + post.image) }}" width="80"></small>
+  </div>
+  <div class="form-group">
+    <label>Schedule Time</label>
+    <input type="datetime-local" class="form-control" name="schedule_time"
+           value="{{ post.schedule_time.strftime('%Y-%m-%dT%H:%M') }}"
+           min="{{ min_dt }}" required>
+  </div>
+  <button class="btn btn-primary">Update Post</button>
+</form>
+{% endblock %}
