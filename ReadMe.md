@@ -18,7 +18,7 @@
 ## Installation:
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/flask-post-scheduler.git
+git clone https://github.com/Usama-Bin-Naseer/Post-Scheduler
 cd Post-Scheduler/
 ```
 
