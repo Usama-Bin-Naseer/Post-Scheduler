@@ -47,7 +47,9 @@ def publish_post(post_id: int):
             print(f'[publish_post] Post {post_id} already published')
             return
 
+        # Mark the post as published and set the published_at time
         post.published = True
+        post.published_at = datetime.now()  # Set the actual publish time
         db.session.commit()
         print(f'[publish_post] Published post {post.id}: {post.text}')
 
@@ -101,6 +103,7 @@ def schedule():
         db.session.add(new_post)
         db.session.commit()
 
+        # Schedule the job
         schedule_job(new_post)
         flash('Post scheduled successfully!', 'success')
         return redirect(url_for('index'))
@@ -139,7 +142,7 @@ def edit(post_id):
         post.schedule_time = new_time
         db.session.commit()
 
-        # Re-schedule the job for this post
+        # Reschedule the job
         schedule_job(post)
         flash('Post updated.', 'success')
         return redirect(url_for('index'))
