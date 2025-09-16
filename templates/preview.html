@@ -1,23 +1,42 @@
 {% extends 'layout.html' %}
+
 {% block content %}
 <h1>Preview (Published Posts)</h1>
+
+<!-- Table displaying the published posts -->
 <table class="table">
-  <thead><tr><th>Text</th><th>Image</th><th>Published At</th><th></th></tr></thead>
-  <tbody>
-  {% for post in posts %}
+  <thead>
     <tr>
-      <td>{{ post.text }}</td>
-      <td><img src="{{ url_for('static', filename='images/' + post.image) }}" width="100"></td>
-      <td>{{ post.schedule_time }}</td>
-      <td>
-        <form method="post" action="{{ url_for('delete', post_id=post.id) }}">
-          <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this post?')">Delete</button>
-        </form>
-      </td>
+      <th>Text</th>
+      <th>Image</th>
+      <th>Published At</th>
+      <th>Actions</th>
     </tr>
-  {% else %}
-    <tr><td colspan="4" class="text-muted">No published posts yet.</td></tr>
-  {% endfor %}
+  </thead>
+  <tbody>
+    {% for post in posts %}
+      <tr>
+        <!-- Display post text -->
+        <td>{{ post.text }}</td>
+        
+        <!-- Display post image -->
+        <td><img src="{{ url_for('static', filename='images/' + post.image) }}" width="100"></td>
+        
+        <!-- Display the scheduled time as "Published At" -->
+        <td>{{ post.schedule_time.strftime('%Y-%m-%d %H:%M') }}</td>
+        
+        <!-- Delete button form -->
+        <td>
+          <form method="post" action="{{ url_for('delete', post_id=post.id) }}">
+            <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this post?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <!-- Display message if there are no posts published yet -->
+      <tr><td colspan="4" class="text-muted">No published posts yet.</td></tr>
+    {% endfor %}
   </tbody>
 </table>
+
 {% endblock %}
