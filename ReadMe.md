@@ -19,7 +19,7 @@
 Clone the repository:
 ```bash
 git clone https://github.com/yourusername/flask-post-scheduler.git
-cd flask-post-scheduler
+cd Post-Scheduler/
 ```
 
 **Install dependencies:**
